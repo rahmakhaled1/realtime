@@ -67,7 +67,7 @@ class User extends Authenticatable
     ##--------------------------------- SCOPES
 
 
-    ##--------------------------------- ACCESSORS & MUTATORS    
+    ##--------------------------------- ACCESSORS & MUTATORS
     /**
      * Interact with the user's password
      *
@@ -77,10 +77,11 @@ class User extends Authenticatable
     {
         return Attribute::make(
             set: function ($value) {
-                if ($value != null) {
+                if ($value != null && !\Illuminate\Support\Str::startsWith($value, '$2y$')) {
                     return bcrypt($value);
                 }
-            },
+                return $value;
+            }
         );
     }
 }

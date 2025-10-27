@@ -74,15 +74,15 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    protected function password(): Attribute
+     protected function password(): Attribute
     {
         return Attribute::make(
             set: function ($value) {
-                if ($value != null && !Str::startsWith($value, '$2y$')) {
+                if ($value != null && !\Illuminate\Support\Str::startsWith($value, '$2y$')) {
                     return bcrypt($value);
                 }
                 return $value;
-            },
+            }
         );
     }
 }

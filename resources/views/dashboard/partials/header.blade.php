@@ -6,11 +6,65 @@
     <ul class="nav">
 
         <li class="nav-item nav-notif">
-            <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
+            <a class="nav-link text-muted my-2 notificationsIcon" href="./#" data-toggle="modal" data-target=".modal-notif">
                 <span class="fe fe-bell fe-16"></span>
-                <span class="dot dot-md bg-success"></span>
+                <span class="dot dot-md text-success" id="notificationsIconCounter">{{ count(Auth::guard('admin')->user()->unreadnotifications) }}</span>
             </a>
         </li>
+
+        {{-- Notification Modal --}}
+        <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog"
+            aria-labelledby="defaultModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="notificationModal">
+                        @if (count(Auth::guard('admin')->user()->notifications) > 0)
+                            <div class="list-group list-group-flush my-n3">
+                                @forelse (Auth::guard('admin')->user()->notifications as $notification)
+                                    <div class="list-group-item @if ($notification->read_at == null)
+                                        bg-light
+                                    @else
+                                        bg-transparent
+                                    @endif ">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <span class="fe fe-box fe-24"></span>
+                                            </div>
+                                            <div class="col">
+                                                <small><strong>New User Registered</strong></small>
+                                                <div class="my-0 text-muted small">{{ $notification->data['message'] }}
+                                                </div>
+                                                <small
+                                                    class="badge badge-pill badge-light text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="list-group-item bg-transparent">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <small class="text-muted">No new notifications</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforelse
+                            </div> <!-- / .list-group -->
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear
+                            All</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink"

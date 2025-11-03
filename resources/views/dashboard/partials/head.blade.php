@@ -25,4 +25,21 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/css/app-light.css" id="lightTheme">
     <link rel="stylesheet" href="{{ asset('assets') }}/css/app-dark.css" id="darkTheme" disabled>
     @stack('styles')
+
+    <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = false;
+
+        var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
+            cluster: 'eu'
+        });
+
+        var channel = pusher.subscribe('new-user-registered');
+        channel.bind('App\\Events\\NewUserRegisteredEvent', function(data) {
+            console.log(data['message']);
+            $('.notificationsIcon').load(" .notificationsIcon > *");
+            $('#notificationModal').load(" #notificationModal > *");
+        });
+    </script>
 </head>

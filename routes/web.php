@@ -49,10 +49,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         ##------------------------------------------------------- ADMIN INDEX PAGE
         Route::get('/', AdminHomeController::class)->name('index');
-        
+
+        ##------------------------------------------------------- markAsRead NOTIFICATIONS
         Route::get('/notifications/markAsRead', function () {
             Auth::guard('admin')->user()->unreadNotifications->markAsRead();
         })->name('notifications.read');
+
+        ##------------------------------------------------------- clear NOTIFICATIONS
+        Route::get('/notifications/clear', function () {
+            Auth::guard('admin')->user()->notifications()->delete();
+        })->name('notifications.clear');
     });
 
     require __DIR__ . '/adminAuth.php';

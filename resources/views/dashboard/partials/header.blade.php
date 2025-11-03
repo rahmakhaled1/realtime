@@ -1,12 +1,12 @@
 <nav class="topnav navbar navbar-light">
-    <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
+    <button type="button" class="p-0 mt-2 mr-3 navbar-toggler text-muted collapseSidebar">
         <i class="fe fe-menu navbar-toggler-icon"></i>
     </button>
 
     <ul class="nav">
 
         <li class="nav-item nav-notif">
-            <a class="nav-link text-muted my-2 notificationsIcon" href="./#" data-toggle="modal" data-target=".modal-notif">
+            <a class="my-2 nav-link text-muted notificationsIcon" href="./#" data-toggle="modal" data-target=".modal-notif">
                 <span class="fe fe-bell fe-16"></span>
                 <span class="dot dot-md text-success" id="notificationsIconCounter">{{ count(Auth::guard('admin')->user()->unreadnotifications) }}</span>
             </a>
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <div class="list-group-item bg-transparent">
+                                    <div class="bg-transparent list-group-item">
                                         <div class="row align-items-center">
                                             <div class="col">
                                                 <small class="text-muted">No new notifications</small>
@@ -58,7 +58,7 @@
                         @endif
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear
+                        <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" id="clearNotifications">Clear
                             All</button>
                     </div>
                 </div>
@@ -67,9 +67,9 @@
 
 
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink"
+            <a class="pr-0 nav-link dropdown-toggle text-muted" href="#" id="navbarDropdownMenuLink"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="avatar avatar-sm mt-2">
+                <span class="mt-2 avatar avatar-sm">
                     <img src="{{ asset('assets') }}/images/avatar.png" alt="Profile image"
                         class="avatar-img rounded-circle">
                 </span>
@@ -78,7 +78,7 @@
 
                 <form action="{{ route('admin.logout') }}" method="POST" class="dropdown-item">
                     @csrf
-                    <button type="submit" class="border-0 bg-transparent p-0 text-danger">
+                    <button type="submit" class="p-0 bg-transparent border-0 text-danger">
                         <span key="t-logout">{{ __('lang.logout') }}</span>
                     </button>
                 </form>

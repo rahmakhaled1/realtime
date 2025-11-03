@@ -29,7 +29,7 @@
 <script src='{{ asset('assets') }}/js/uppy.min.js'></script>
 <script src='{{ asset('assets') }}/js/quill.min.js'></script>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $(document).on('click', '.notificationsIcon', function(event) {
             $.ajax({
@@ -45,5 +45,19 @@
                 }
             });
         });
+        $(document).on('click', '#clearNotifications', function(event) {
+            $.ajax({
+                url: {{ Illuminate\Support\Js::from(route('admin.notifications.clear')) }},
+
+                method: 'GET',
+                success: function(data) {
+                    $('#notificationsIconCounter').load(" #notificationsIconCounter > *");
+                    $('#notificationModal').load(" #notificationModal > *");
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error marking notifications as read:', error);
+                }
+            });
+        });
     });
-</script>
+</script> --}}

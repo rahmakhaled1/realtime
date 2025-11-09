@@ -45,11 +45,12 @@ window.Echo = new Echo({
 // );
 
 // PRIVATE CHANNEL
-window.Echo.private(`new-user-registered`).listen(
-    "NewUserRegisteredEvent",
-    (e) => {
+window.Echo.private(`new-user-registered`)
+    .listen("NewUserRegisteredEvent", (e) => {
         console.log(e);
         $(".notificationsIcon").load(" .notificationsIcon > *");
         $("#notificationModal").load(" #notificationModal > *");
-    }
-);
+    })
+    .listen("NewUserRegisteredEvent2", (e) => {
+        console.log(e);
+    });

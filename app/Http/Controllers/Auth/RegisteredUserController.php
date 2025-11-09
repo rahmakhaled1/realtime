@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use App\Events\NewUserRegisteredEvent;
 use Illuminate\Auth\Events\Registered;
+use App\Events\NewUserRegisteredEvent2;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
 use App\Notifications\NewUserRegisteredNotification;
@@ -51,6 +52,8 @@ class RegisteredUserController extends Controller
         $admin->notify(new NewUserRegisteredNotification($user));
 
         NewUserRegisteredEvent::dispatch($user);
+        NewUserRegisteredEvent2::dispatch('Hello from event 2');
+
         // Broadcast(new NewUserRegisteredEvent($user));
 
         Auth::login($user);

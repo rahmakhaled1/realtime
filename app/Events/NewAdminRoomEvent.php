@@ -10,16 +10,17 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewUserRegisteredEvent2 implements ShouldBroadcast
+class NewAdminRoomEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public $message){}
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * Get the channels the event should broadcast on.
@@ -29,9 +30,7 @@ class NewUserRegisteredEvent2 implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('new-user-registered'),
+            new PresenceChannel('admin-room-channel'),
         ];
     }
-
-
 }

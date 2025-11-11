@@ -35,22 +35,53 @@ window.Echo = new Echo({
 });
 
 // PUBLIC CHANNEL
-// window.Echo.channel(`new-user-registered`).listen(
-//     "NewUserRegisteredEvent",
-//     (e) => {
-//         console.log(e);
-//         $(".notificationsIcon").load(" .notificationsIcon > *");
-//         $("#notificationModal").load(" #notificationModal > *");
-//     }
-// );
-
-// PRIVATE CHANNEL
-window.Echo.private(`new-user-registered`)
-    .listen("NewUserRegisteredEvent", (e) => {
+window.Echo.channel(`new-user-registered`).listen(
+    ".new-user-registered",
+    (e) => {
         console.log(e);
         $(".notificationsIcon").load(" .notificationsIcon > *");
         $("#notificationModal").load(" #notificationModal > *");
-    })
-    .listen("NewUserRegisteredEvent2", (e) => {
-        console.log(e);
-    });
+    }
+);
+
+// PRIVATE CHANNEL
+// window.Echo.private(`new-user-registered`)
+//     .listen("NewUserRegisteredEvent", (e) => {
+//         console.log(e);
+//         $(".notificationsIcon").load(" .notificationsIcon > *");
+//         $("#notificationModal").load(" #notificationModal > *");
+//     })
+//     .listen("NewUserRegisteredEvent2", (e) => {
+//         console.log(e);
+//     });
+
+// PRESENCE CHANNEL
+// window.Echo.join("admin-room-channel")
+//     .here((users) => {
+//         $("#online-admin").empty();
+//         users.forEach((user) => {
+//             $("#online-admin").append(`
+//                 <li class="list-group-item d-flex align-items-center" id="user-${user.id}">
+//                     <span class="status-dot"></span>
+//                     <span>${user.name}</span>
+//                 </li>
+//             `);
+//         });
+//         $("#online-count").text(users.length);
+//     })
+//     .joining((user) => {
+//         $("#online-admin").append(`
+//             <li class="list-group-item d-flex align-items-center" id="user-${user.id}">
+//                 <span class="status-dot"></span>
+//                 <span>${user.name}</span>
+//             </li>
+//         `);
+//         $("#online-count").text($("#online-admin li").length);
+//         showToast(`${user.name} دخل الآن.`, "success");
+//     })
+//     .leaving((user) => {
+//         $(`#user-${user.id}`).remove();
+//         $("#online-count").text($("#online-admin li").length);
+//         showToast(`${user.name} خرج الآن.`, "danger");
+//     });
+

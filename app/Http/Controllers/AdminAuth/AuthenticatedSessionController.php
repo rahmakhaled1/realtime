@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminAuth;
 
+use App\Events\NewAdminRoomEvent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,8 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate('admin');
 
         $request->session()->regenerate();
+
+        // NewAdminRoomEvent::dispatch();
 
         return \to_route('admin.index');
     }

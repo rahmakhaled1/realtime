@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
         $admin->notify(new NewUserRegisteredNotification($user));
 
         NewUserRegisteredEvent::dispatch($user);
-        NewUserRegisteredEvent2::dispatch('Hello from event 2');
+        // NewUserRegisteredEvent2::dispatch('Hello from event 2');
 
         // Broadcast(new NewUserRegisteredEvent($user));
 

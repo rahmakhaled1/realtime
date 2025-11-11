@@ -22,6 +22,7 @@ class NewUserRegisteredEvent implements ShouldBroadcast
     public function __construct(public User $user)
     {
         $this->message = 'New user registered: ' . $user->name;
+        $this->user = $user;
     }
 
     /**
@@ -32,7 +33,24 @@ class NewUserRegisteredEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('new-user-registered'),
+            new Channel('new-user-registered'),
         ];
+    }
+
+    public function broadcastAs(): string
+    {
+        return 'new-user-registered';
+    }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'email' => $this->user->email
+        ];
+    }
+
+    public function broadcastWhen(): bool
+    {
+        return $this->user->name == 'rahma';
     }
 }

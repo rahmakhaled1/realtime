@@ -24,4 +24,12 @@ use Illuminate\Support\Facades\Broadcast;
 // }, ['guards' => ['admin']]);
 
 //PUBLIC CHANNEL AUTHORIZATION
-Broadcast::channel('new-user-registered', NewUserChannel::class, ['guards' => ['admin']]);
+// Broadcast::channel('new-user-registered', NewUserChannel::class, ['guards' => ['admin']]);
+
+
+//PRESENCE CHANNEL AUTHORIZATION
+Broadcast::channel('admin-room-channel', function ($admin) {
+    return [
+        'name' => $admin->name,
+    ];
+}, ['guards' => ['admin']]);
